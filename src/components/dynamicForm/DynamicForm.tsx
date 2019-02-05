@@ -1,6 +1,7 @@
 import * as React from 'react'
 import injectSheet from 'react-jss'
 import { DynamicInputParser } from '../../parser/dynamicInputParser'
+import { valueExpressionParser } from '../../parser/valueExpressionParser'
 
 interface IProps {
     input: string
@@ -61,23 +62,14 @@ export const DynamicForm = injectSheet(styles)(
                 return value
             }
 
-            const parts = value.split('+')
+            const parts = valueExpressionParser.getParts(value)
             const updatedParts = parts.map(part => {
                 const stateValue = values.get(part.trim())
 
-                return stateValue || this.parsePart(part)
+                return stateValue || valueExpressionParser.parsePart(part)
             })
 
             return updatedParts.join('')
-        }
-
-        private parsePart(part: string) {
-            const firstQuoteIndex = part.indexOf('"')
-            const lastQuoteIndex = part.lastIndexOf('"')
-            // tslint:disable-next-line:no-console
-            console.log(part)
-
-            return part.substring(firstQuoteIndex + 1, lastQuoteIndex)
         }
     }
 )
