@@ -16,11 +16,11 @@ const styles = {
         display: 'flex',
         'flex-direction': 'column',
         margin: '0 auto 0',
-        width: '500px'
+        'max-width': '500px'
     },
     input: {
-        height: '300px',
-        width: '500px',
+        'margin-bottom': '15px',
+        resize: 'none',
     }
 }
 
@@ -34,9 +34,7 @@ export class AppComponent extends React.Component<IProps, IState> {
         const { classes } = this.props
 
         return <div className={classes.app}>
-            <div>
-                <textarea onChange={this.onTextAreaChange} className={classes.input} />
-            </div>
+            <textarea onChange={this.onTextAreaChange} className={classes.input} rows={10} autoFocus={true} />
             <DynamicForm input={this.state.input} />
         </div>
     }

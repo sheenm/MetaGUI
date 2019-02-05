@@ -38,6 +38,8 @@ export const DynamicForm = injectSheet(styles)(
             const elements = this.parser.parse(this.props.input)
 
             return <form className={this.props.classes.dynamicForm} onSubmit={this.submit}>
+                {elements.length && <span> Эта форма создана автоматически </span> || <span>Начните ввод чтоб получилась форма</span>}
+
                 {elements.map(({ createComponent, name, value, isExpression }) =>
                     createComponent({ name, value: this.getValue(value, isExpression), onChange: this.onElementChange(name) }))}
             </form>

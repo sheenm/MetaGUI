@@ -13,6 +13,14 @@ export class DynamicFormRepository {
             },
             method: 'POST',
         })
+            .then(response => {
+                if (response.status >= 200 && response.status <= 300) {
+                    return response.json()
+                }
+
+                throw new Error((`error ${response.status}`))
+
+            })
             .catch(error => alert(error))
 
     }

@@ -5,6 +5,11 @@ import { parseSubmit } from './submitInputParser'
 import { parseText } from './textParser'
 
 export class DynamicInputParser {
+    private parsers: Map<string, (str: string) => IParsedElement>
+
+    constructor() {
+        this.initParsers()
+    }
 
     public parse(input: string): IParsedElement[] {
         const rows = input.split('\n')
@@ -13,15 +18,10 @@ export class DynamicInputParser {
             .filter(row => row.trim().length)
             .map(row => {
                 const type = this.parseElementType(row)
+                const parseFunction = this.parsers.get(type)
 
-                if (type === 'label') {
-                    return parseLabel(row)
-                }
-                else if (type === 'text') {
-                    return parseText(row)
-                }
-                else if (type === 'submit') {
-                    return parseSubmit(row)
+                if (parseFunction) {
+                    return parseFunction(row)
                 }
                 else {
                     return {
@@ -39,5 +39,11 @@ export class DynamicInputParser {
 
         return parsed ? parsed[0].trim() : 'unknown'
     }
-}
 
+    private initParsers() {
+        this.parsers = new Map<string, (str: string) => IParsedElement>()
+        this.parsers.set('label', parseLabel)
+        this.parsers.set('text', parseText)
+        this.parsers.set('submit', parseSubmit)
+    }
+}
