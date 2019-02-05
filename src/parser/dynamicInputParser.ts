@@ -27,7 +27,7 @@ export class DynamicInputParser {
                     return {
                         createComponent: UnknownComponent,
                         name: row,
-                        valueExpression: `Неизвестный тип ${type}`,
+                        value: `Неизвестный тип ${type}`,
                     }
                 }
 

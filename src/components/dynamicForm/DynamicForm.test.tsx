@@ -83,3 +83,34 @@ it('renders error when tries to use static and dynamic submit at the same time',
 
     ReactDOM.unmountComponentAtNode(div)
 })
+
+/** Тест из тестового задания */
+it('renders complexForm', () => {
+    const input = 'label: Имя\ntext NAME\nlabel: Фамилия\ntext SURNAME\nlabel: ФИО\ntext FULLNAME=SURNAME + " " + NAME + " Батькович"\nsubmit: Сохранить'
+
+    const div = document.createElement('div')
+    ReactDOM.render(<DynamicForm input={input} />, div)
+
+    const firstLabelText: string = (div.querySelector('form label:nth-child(1)') as any).textContent
+    expect(firstLabelText).toContain('Имя')
+
+    const firstTextbox = div.querySelector('input[name="NAME"]') as HTMLInputElement
+    expect(firstTextbox).not.toBeNull()
+
+    const secondLabelText: string = (div.querySelector('form label:nth-child(3)') as any).textContent
+    expect(secondLabelText).toContain('Фамилия')
+
+    const secondTextBox = div.querySelector('input[name="SURNAME"]') as HTMLInputElement
+    expect(secondTextBox).not.toBeNull()
+
+    const thirdLabelText: string = (div.querySelector('form label:nth-child(5)') as any).textContent
+    expect(thirdLabelText).toContain('ФИО')
+
+    const thirdTextBox = div.querySelector('input[name="FULLNAME"]') as HTMLInputElement
+    expect(thirdTextBox).not.toBeNull()
+
+    // 2 текстбокса пустые... Надо будет подключить Enzyme чтоб нормально проверить
+    expect(thirdTextBox.value).toContain(' Батькович')
+
+    ReactDOM.unmountComponentAtNode(div)
+})

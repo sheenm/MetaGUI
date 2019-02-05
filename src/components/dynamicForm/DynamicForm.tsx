@@ -37,7 +37,8 @@ export const DynamicForm = injectSheet(styles)(
             // todo: Необходимо valueExpression -> value переделать чтоб реальо выполнялось экспрессион
 
             return <form className={this.props.classes.dynamicForm}>
-                {elements.map(({ createComponent, name, value }) => createComponent({ name, value, onChange: this.onElementChange(name) }))}
+                {elements.map(({ createComponent, name, value, isExpression }) =>
+                    createComponent({ name, value: this.getValue(value, isExpression), onChange: this.onElementChange(name) }))}
             </form>
         }
 
@@ -51,6 +52,32 @@ export const DynamicForm = injectSheet(styles)(
                     values: newValues
                 })
             }
+        }
+
+        private getValue = (value: string | undefined, isExpression: boolean | undefined) => {
+            const { values } = this.state
+
+            if (!isExpression || !value) {
+                return value
+            }
+
+            const parts = value.split('+')
+            const updatedParts = parts.map(part => {
+                const stateValue = values.get(part.trim())
+
+                return stateValue || this.parsePart(part)
+            })
+
+            return updatedParts.join('')
+        }
+
+        private parsePart(part: string) {
+            const firstQuoteIndex = part.indexOf('"')
+            const lastQuoteIndex = part.lastIndexOf('"')
+            // tslint:disable-next-line:no-console
+            console.log(part)
+
+            return part.substring(firstQuoteIndex + 1, lastQuoteIndex)
         }
     }
 )

@@ -23,22 +23,12 @@ export const parseSubmit = (str: string): IParsedElement => {
         }
     }
 
-    if (isStatic) {
-        const value = str.substring(str.search(/[:]/) + 1).trim()
-
-        return {
-            createComponent: SubmitComponent,
-            name: str,
-            value
-        }
-    }
-
-
-    const valueExpression = str.substring(str.search(/[=]/) + 1).trim()
+    const value = str.substring(str.search(/[:=]/) + 1).trim()
 
     return {
         createComponent: SubmitComponent,
+        isExpression: isDynamic,
         name: str,
-        valueExpression
+        value,
     }
 }

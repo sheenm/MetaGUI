@@ -8,15 +8,19 @@ export const parseText = (str: string): IParsedElement => {
     if (!name) {
         return {
             createComponent: UnknownComponent,
+            isExpression: false,
             name: str,
-            valueExpression: 'Не найдено название текстбокса',
+            value: 'Не найдено название текстбокса',
         }
     }
 
+    const value = findValueExpression(str)
+
     return {
         createComponent: TextComponent,
+        isExpression: value != null,
         name,
-        valueExpression: findValueExpression(str)
+        value
     }
 }
 

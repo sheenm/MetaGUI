@@ -21,23 +21,12 @@ export const parseLabel = (str: string): IParsedElement => {
             value: 'Нельзя задавать и динамическое, и статическое значение лейблу одновременно',
         }
     }
-
-    if (isStatic) {
-        const value = str.substring(str.search(/[:]/) + 1).trim()
-
-        return {
-            createComponent: LabelComponent,
-            name: str,
-            value
-        }
-    }
-
-
-    const valueExpression = str.substring(str.search(/[=]/) + 1).trim()
+    const value = str.substring(str.search(/[:=]/) + 1).trim()
 
     return {
         createComponent: LabelComponent,
+        isExpression: isDynamic,
         name: str,
-        valueExpression
+        value,
     }
 }
