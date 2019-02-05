@@ -2,6 +2,7 @@ import * as React from 'react'
 import injectSheet from 'react-jss'
 import { DynamicInputParser } from '../../parser/dynamicInputParser'
 import { valueExpressionParser } from '../../parser/valueExpressionParser'
+import { DynamicFormRepository } from '../../repository/dynamicFormRepository'
 
 interface IProps {
     input: string
@@ -35,12 +36,17 @@ export const DynamicForm = injectSheet(styles)(
 
         public render() {
             const elements = this.parser.parse(this.props.input)
-            // todo: Необходимо valueExpression -> value переделать чтоб реальо выполнялось экспрессион
 
-            return <form className={this.props.classes.dynamicForm}>
+            return <form className={this.props.classes.dynamicForm} onSubmit={this.submit}>
                 {elements.map(({ createComponent, name, value, isExpression }) =>
                     createComponent({ name, value: this.getValue(value, isExpression), onChange: this.onElementChange(name) }))}
             </form>
+        }
+
+        private submit = (event: React.FormEvent<HTMLFormElement>) => {
+            event.preventDefault()
+            const repository = new DynamicFormRepository()
+            repository.submitDynamicForm(this.state.values)
         }
 
         private onElementChange = (name: string) => {
