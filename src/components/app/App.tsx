@@ -17,7 +17,8 @@ const styles = {
         'flex-direction': 'row',
     },
     input: {
-        'border-right': '1px solid #eee'
+        height: '300px',
+        width: '400px',
     }
 }
 
@@ -31,8 +32,8 @@ export class AppComponent extends React.Component<IProps, IState> {
         const { classes } = this.props
 
         return <div className={classes.app}>
-            <div className={classes.input}>
-                <textarea onChange={this.onTextAreaChange} />
+            <div>
+                <textarea onChange={this.onTextAreaChange} className={classes.input} />
             </div>
             <DynamicForm input={this.state.input} />
         </div>
