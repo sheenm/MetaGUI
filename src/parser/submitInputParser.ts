@@ -1,8 +1,9 @@
 import { IParsedElement } from '@types'
-import { LabelComponent } from '../components/dynamicForm/dynamicFormComponents/LabelComponent'
+import { SubmitComponent } from '../components/dynamicForm/dynamicFormComponents/SubmitComponent'
 import { UnknownComponent } from '../components/dynamicForm/dynamicFormComponents/UnknownComponent'
 
-export const parseLabel = (str: string): IParsedElement => {
+export const parseSubmit = (str: string): IParsedElement => {
+
     const isStatic = str.indexOf(':') !== -1
     const isDynamic = str.indexOf('=') !== -1
 
@@ -10,7 +11,7 @@ export const parseLabel = (str: string): IParsedElement => {
         return {
             createComponent: UnknownComponent,
             name: str,
-            value: 'Не найден текст для лейбла',
+            value: 'Не найден текст для кнопки'
         }
     }
 
@@ -18,7 +19,7 @@ export const parseLabel = (str: string): IParsedElement => {
         return {
             createComponent: UnknownComponent,
             name: str,
-            value: 'Нельзя задавать и динамическое, и статическое значение лейблу одновременно',
+            value: 'Нельзя задавать и динамическое, и статическое значение кнопке одновременно',
         }
     }
 
@@ -26,7 +27,7 @@ export const parseLabel = (str: string): IParsedElement => {
         const value = str.substring(str.search(/[:]/) + 1).trim()
 
         return {
-            createComponent: LabelComponent,
+            createComponent: SubmitComponent,
             name: str,
             value
         }
@@ -36,7 +37,7 @@ export const parseLabel = (str: string): IParsedElement => {
     const valueExpression = str.substring(str.search(/[=]/) + 1).trim()
 
     return {
-        createComponent: LabelComponent,
+        createComponent: SubmitComponent,
         name: str,
         valueExpression
     }

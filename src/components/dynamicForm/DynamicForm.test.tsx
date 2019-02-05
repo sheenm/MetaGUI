@@ -63,3 +63,23 @@ it('renders error textbox when no name (and tries expression)', () => {
 
     ReactDOM.unmountComponentAtNode(div)
 })
+
+it('renders static submit', () => {
+    const div = document.createElement('div')
+    ReactDOM.render(<DynamicForm input="submit: submitText" />, div)
+
+    const submitText: string = (div.querySelector('form input:first-child') as any).value
+    expect(submitText).toBe('submitText')
+
+    ReactDOM.unmountComponentAtNode(div)
+})
+
+it('renders error when tries to use static and dynamic submit at the same time', () => {
+    const div = document.createElement('div')
+    ReactDOM.render(<DynamicForm input="submit:= submitText" />, div)
+
+    const labelText: string = (div.querySelector('form span:first-child') as any).textContent
+    expect(labelText).toContain('Ошибка синтаксиса')
+
+    ReactDOM.unmountComponentAtNode(div)
+})

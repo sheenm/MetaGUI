@@ -37,7 +37,7 @@ export const DynamicForm = injectSheet(styles)(
             // todo: Необходимо valueExpression -> value переделать чтоб реальо выполнялось экспрессион
 
             return <form className={this.props.classes.dynamicForm}>
-                {elements.map(({ createComponent, name, valueExpression: value }) => createComponent({ name, value, onChange: this.onElementChange(name) }))}
+                {elements.map(({ createComponent, name, value }) => createComponent({ name, value, onChange: this.onElementChange(name) }))}
             </form>
         }
 

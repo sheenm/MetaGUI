@@ -20,7 +20,6 @@ export const parseText = (str: string): IParsedElement => {
     }
 }
 
-
 const findInputName = (str: string): string => {
     const regExpMatches = str.match(/^\w+\s+(\w+)/)
     const name = (regExpMatches && regExpMatches[1]) || ''

@@ -3,6 +3,7 @@ declare module '@types' {
         name: string
         createComponent: React.SFC<IDynamicFormComponentCreatorProps>
         valueExpression?: string
+        value?: string
     }
 
     interface IDynamicFormComponentCreatorProps {

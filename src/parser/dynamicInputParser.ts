@@ -1,6 +1,7 @@
 import { IParsedElement } from '@types'
 import { UnknownComponent } from '../components/dynamicForm/dynamicFormComponents/UnknownComponent'
 import { parseLabel } from './labelParser'
+import { parseSubmit } from './submitInputParser'
 import { parseText } from './textParser'
 
 export class DynamicInputParser {
@@ -18,6 +19,9 @@ export class DynamicInputParser {
                 }
                 else if (type === 'text') {
                     return parseText(row)
+                }
+                else if (type === 'submit') {
+                    return parseSubmit(row)
                 }
                 else {
                     return {

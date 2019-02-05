@@ -14,11 +14,13 @@ interface IState {
 const styles = {
     app: {
         display: 'flex',
-        'flex-direction': 'row',
+        'flex-direction': 'column',
+        margin: '0 auto 0',
+        width: '500px'
     },
     input: {
         height: '300px',
-        width: '400px',
+        width: '500px',
     }
 }
 
