@@ -5,7 +5,7 @@ import { parseSubmit } from './submitInputParser'
 import { parseText } from './textParser'
 
 export class DynamicInputParser {
-    private parsers: Map<string, (str: string) => IParsedElement>
+    private parsers = new Map<string, (str: string) => IParsedElement>()
 
     constructor() {
         this.initParsers()
@@ -41,7 +41,6 @@ export class DynamicInputParser {
     }
 
     private initParsers() {
-        this.parsers = new Map<string, (str: string) => IParsedElement>()
         this.parsers.set('label', parseLabel)
         this.parsers.set('text', parseText)
         this.parsers.set('submit', parseSubmit)

@@ -1,24 +1,23 @@
 import * as React from 'react'
-import injectSheet from 'react-jss'
+import injectSheet, { WithSheet } from 'react-jss'
 import { DynamicInputParser } from '../../parser/dynamicInputParser'
 import { valueExpressionParser } from '../../parser/valueExpressionParser'
 import { DynamicFormRepository } from '../../repository/dynamicFormRepository'
-
-interface IProps {
-    input: string
-    classes: { dynamicForm: string }
-}
-
-interface IState {
-    // - значения элементов на форме по имени
-    values: Map<string, string>
-}
 
 const styles = {
     dynamicForm: {
         display: 'flex',
         'flex-direction': 'column'
     }
+}
+
+interface IProps extends WithSheet<keyof typeof styles, {}> {
+    input: string
+}
+
+interface IState {
+    // - значения элементов на форме по имени
+    values: Map<string, string>
 }
 
 export const DynamicForm = injectSheet(styles)(

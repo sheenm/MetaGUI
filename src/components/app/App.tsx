@@ -1,15 +1,6 @@
 import * as React from 'react'
-import injectSheet from 'react-jss'
+import injectSheet, { WithSheet } from 'react-jss'
 import { DynamicForm } from '../dynamicForm/DynamicForm'
-
-
-interface IProps {
-    classes: { app: string, input: string }
-}
-
-interface IState {
-    input: string
-}
 
 const styles = {
     app: {
@@ -22,6 +13,12 @@ const styles = {
         'margin-bottom': '15px',
         resize: 'none',
     }
+}
+
+interface IProps extends WithSheet<keyof typeof styles, {}> { }
+
+interface IState {
+    input: string
 }
 
 export class AppComponent extends React.Component<IProps, IState> {
